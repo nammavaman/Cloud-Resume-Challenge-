@@ -34,23 +34,6 @@ jobs:
       - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset
         working-directory: vkmanjeshwar
 
-  integration-test-backend:
-    needs: build-and-deploy-backend
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - run: cd vkmanjeshwar && make integration-test && cd ../../
-
-  end-to-end-test:
-    needs: integration-test-backend
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-        with:
-          node-version: 14
-      - run: cd vkmanjeshwar/end-to-end-test && npm install && node index.js
-
   deploy-frontend:
     runs-on: ubuntu-latest
     steps:
