@@ -253,8 +253,8 @@
     })
   });
 
-  fetch('https://0h6a9wzp86.execute-api.us-east-1.amazonaws.com/Prod/put')
-  .then(() => fetch('https://0h6a9wzp86.execute-api.us-east-1.amazonaws.com/Prod/get'))
+  fetch('https://api.vkmanjeshwar.com/put')
+  .then(() => fetch('https://api.vkmanjeshwar.com/get'))
   .then(response => response.json())
   .then((data) => {
       document.getElementById('visits').innerText = data.count
