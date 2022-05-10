@@ -53,9 +53,9 @@ Resources:
   MyRoute53Record:
     Type: "AWS::Route53::RecordSetGroup"
     Properties:
-      HostedZoneId: Z08049673GCND6NPGFG93 # TODO: Don't hardcode me
+      HostedZoneId: Z08049673GCND6NPGFG93 
       RecordSets:
-        - Name: www.vkmanjeshwar.com # TODO: Don't hardcode me
+        - Name: www.vkmanjeshwar.com 
           Type: A
           AliasTarget:
             HostedZoneId: Z2FDTNDATAQYW2
@@ -64,7 +64,7 @@ Resources:
   MyCertificate:
     Type: AWS::CertificateManager::Certificate
     Properties:
-      DomainName: www.vkmanjeshwar.com # TODO: Don't hardcode me
+      DomainName: www.vkmanjeshwar.com 
       ValidationMethod: DNS
 
         
@@ -76,7 +76,7 @@ Resources:
             AcmCertificateArn: !Ref MyCertificate
             SslSupportMethod: sni-only
         Aliases:
-            - www.vkmanjeshwar.com # TODO: Don't hardcode me
+            - www.vkmanjeshwar.com 
         DefaultCacheBehavior:
           ViewerProtocolPolicy: allow-all
           TargetOriginId: vkmanjeshwar.com.s3-website-us-east-1.amazonaws.com
@@ -131,5 +131,15 @@ Resources:
           Properties:
             Path: /put
             Method: GET
+
+  ApiGatewayApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: prod
+      Domain:
+        DomainName: www.vkmanjeshwar.com
+        CertificateArn: !Ref MyCertificate
+        Route53:
+          HostedZoneId: Z08049673GCND6NPGFG93
 
 
