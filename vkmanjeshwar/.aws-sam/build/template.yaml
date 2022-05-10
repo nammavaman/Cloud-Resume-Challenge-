@@ -59,11 +59,6 @@ Resources:
             Fn::GetAtt:
             - MyDistribution
             - DomainName
-  MyCertificate:
-    Type: AWS::CertificateManager::Certificate
-    Properties:
-      DomainName: www.vkmanjeshwar.com
-      ValidationMethod: DNS
   MyDistribution:
     Type: AWS::CloudFront::Distribution
     Properties:
@@ -87,7 +82,7 @@ Resources:
           Id: vkmanjeshwar.com.s3-website-us-east-1.amazonaws.com
           CustomOriginConfig:
             OriginProtocolPolicy: match-viewer
-        Enabled: 'true'
+        Enabled: true
         DefaultRootObject: index.html
   GetFunction:
     Type: AWS::Serverless::Function
@@ -107,6 +102,8 @@ Resources:
           Properties:
             Path: /get
             Method: GET
+            RestApiId:
+              Ref: ApiGatewayApi
     Metadata:
       SamResourceId: GetFunction
   PutFunction:
@@ -127,5 +124,26 @@ Resources:
           Properties:
             Path: /put
             Method: GET
+            RestApiId:
+              Ref: ApiGatewayApi
     Metadata:
       SamResourceId: PutFunction
+  ApiGatewayApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: prod
+      Domain:
+        DomainName: api.vkmanjeshwar.com
+        CertificateArn:
+          Ref: MyCertificate
+        Route53:
+          HostedZoneId: Z08049673GCND6NPGFG93
+  MyCertificate:
+    Type: AWS::CertificateManager::Certificate
+    Properties:
+      DomainName:
+        Fn::Join:
+        - ''
+        - - '*.'
+          - vkmanjeshwar.com
+      ValidationMethod: DNS

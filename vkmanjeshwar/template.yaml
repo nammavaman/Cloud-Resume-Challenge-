@@ -60,13 +60,6 @@ Resources:
           AliasTarget:
             HostedZoneId: Z2FDTNDATAQYW2
             DNSName: !GetAtt MyDistribution.DomainName
-
-  MyCertificate:
-    Type: AWS::CertificateManager::Certificate
-    Properties:
-      DomainName: www.vkmanjeshwar.com 
-      ValidationMethod: DNS
-
         
   MyDistribution:
     Type: "AWS::CloudFront::Distribution"
@@ -140,9 +133,15 @@ Resources:
     Properties:
       StageName: prod
       Domain:
-        DomainName: www.vkmanjeshwar.com
+        DomainName: api.vkmanjeshwar.com
         CertificateArn: !Ref MyCertificate
         Route53:
           HostedZoneId: Z08049673GCND6NPGFG93
+
+  MyCertificate:
+    Type: AWS::CertificateManager::Certificate
+    Properties:
+      DomainName: !Join ["", ["*.", vkmanjeshwar.com]]
+      ValidationMethod: DNS
 
 
