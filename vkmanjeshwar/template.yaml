@@ -72,15 +72,15 @@ Resources:
             - www.vkmanjeshwar.com 
         DefaultCacheBehavior:
           ViewerProtocolPolicy: allow-all
-          TargetOriginId: vkmanjeshwar.com.s3-website-us-east-1.amazonaws.com
+          TargetOriginId: vkmanjeshwar.com.s3.us-east-1.amazonaws.com
           DefaultTTL: 0
           MinTTL: 0
           MaxTTL: 0
           ForwardedValues:
             QueryString: false
         Origins:
-          - DomainName: vkmanjeshwar.com.s3-website-us-east-1.amazonaws.com
-            Id: vkmanjeshwar.com.s3-website-us-east-1.amazonaws.com
+          - DomainName: vkmanjeshwar.com.s3.us-east-1.amazonaws.com
+            Id: vkmanjeshwar.com.s3.us-east-1.amazonaws.com
             CustomOriginConfig:
               OriginProtocolPolicy: match-viewer
         Enabled: true
